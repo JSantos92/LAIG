@@ -1,4 +1,4 @@
-function triangle(scene,args) {
+function Triangle(scene,args) {
     CGFobject.call(this,scene);
 
     var res = args.split(" ");
@@ -16,10 +16,10 @@ function triangle(scene,args) {
     this.initBuffers();
 }
 
-triangle.prototype = Object.create(CGFobject.prototype);
-triangle.prototype.constructor = triangle;
+Triangle.prototype = Object.create(CGFobject.prototype);
+Triangle.prototype.constructor = Triangle;
 
-triangle.prototype.initBuffers = function() {
+Triangle.prototype.initBuffers = function() {
 
     this.vertices = [
         this.x1,this.y1,this.z1,
@@ -29,7 +29,7 @@ triangle.prototype.initBuffers = function() {
     ];
 
     this.indices = [
-        0, 1, 2
+        2, 1, 0
     ];
 
     this.normals = [

@@ -89,7 +89,7 @@ MySceneGraph.prototype.onXMLReady=function() {
 };
 
 MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
-	
+
 	var elems =  rootElement.getElementsByTagName('globals');
 	if (elems == null) {
 		return "globals element is missing.";

@@ -1,4 +1,4 @@
-function rectangle(scene,args) {
+function Rectangle(scene,args) {
     CGFobject.call(this,scene);
 
     var res = args.split(" ");
@@ -11,10 +11,10 @@ function rectangle(scene,args) {
     this.initBuffers();
 }
 
-rectangle.prototype = Object.create(CGFobject.prototype);
-rectangle.prototype.constructor = rectangle;
+Rectangle.prototype = Object.create(CGFobject.prototype);
+Rectangle.prototype.constructor = rectangle;
 
-rectangle.prototype.initBuffers = function() {
+Rectangle.prototype.initBuffers = function() {
 
     /*
      Vertices declarados a partir do canto superior esquerdo em sentido horario
