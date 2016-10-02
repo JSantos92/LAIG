@@ -1,5 +1,5 @@
 function Cylinder(scene, args) {
-    CGFobject.call(this,scene);
+    CGFobject.call(this, scene);
 
     var res = args.split(" ");
 
@@ -8,3 +8,4 @@ function Cylinder(scene, args) {
     this.height = res[2];
     this.slices = res[3];
     this.stacks = res[4];
+}

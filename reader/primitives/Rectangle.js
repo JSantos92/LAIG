@@ -4,15 +4,15 @@ function Rectangle(scene,args) {
     var res = args.split(" ");
 
     this.x1 = res[0];
-    this.x2 = res[1];
-    this.y1 = res[2];
+    this.y1 = res[1];
+    this.x2 = res[2];
     this.y2 = res[3];
 
     this.initBuffers();
 }
 
 Rectangle.prototype = Object.create(CGFobject.prototype);
-Rectangle.prototype.constructor = rectangle;
+Rectangle.prototype.constructor = Rectangle;
 
 Rectangle.prototype.initBuffers = function() {
 
@@ -32,7 +32,7 @@ Rectangle.prototype.initBuffers = function() {
 
     this.indices = [
         0, 1, 2,
-        2, 3, 1
+        0, 2, 3
 
     ];
 
