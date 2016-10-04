@@ -80,24 +80,23 @@ XMLscene.prototype.display = function () {
 	if (this.graph.loadedOk)
 	{
 
+        // var triangle = new Triangle(this,'0 0 0 0 1 0 1 1 0');
+        // triangle.display();
 
-//	    var triangle = new Triangle(this,'0 0 0 0 1 0 1 1 0');
-//        triangle.display();
-//
-//        var rectangle = new Rectangle(this,'0 0 1 1');
-//        rectangle.display();
-//
-//        var circle = new Circle(this,'1 100');
-//        circle.display();
+        // var rectangle = new Rectangle(this,'0 0 1 1');
+        // rectangle.display();
 
-         var cylinder = new Cylinder(this,'1 1 5 6 3');
-         cylinder.display();
+        // var circle = new Circle(this,'1 100');
+        // circle.display();
+
+         // var cylinder = new Cylinder(this,'1 1 5 6 3');
+         // cylinder.display();
 
         // var sphere = new Sphere(this,'1 1 6 6');
         // cylinder.display();
 
-        // var torus = new Torus(this,'');
-        // torus.display();
+          var torus = new Torus(this,'2 1 6 6');
+          torus.display();
 
 	    // Draw axis
         this.axis.display();
