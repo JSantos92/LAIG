@@ -21,23 +21,17 @@ Circle.prototype.initBuffers = function() {
     this.normals = [];
     this.indices = [];
 
-   // this.vertices.push(0, 0, 0);
+    this.vertices.push(0, 0, 0);
+    this.normals.push(0,0,1);
 
-    //console.log(this.slices);
-    //
-    // for (var i=0; i < this.slices-1; i++) {
-    //
-    //     console.log(this.alpha*i);
-    //
-    //     console.log(i);
-    //
-    //     this.vertices.push(Math.cos(this.alpha*i), Math.sin(this.alpha*i),0);
-    //
-    //     this.indices.push(i,i+1,i+2);
-    //
-    //
-    //
-    // }
+    for(var i=0;i<this.slices+1 ;i++){
+        if(i!=0){
+            this.indices.push(0,i,i+1);
+        }
+        this.vertices.push(Math.cos(this.alpha*i), Math.sin(this.alpha*i),0);
+        this.normals.push(0,0,1);
+    }
+
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

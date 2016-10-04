@@ -81,17 +81,21 @@ XMLscene.prototype.display = function () {
 	{
 
 
-	    // var triangle = new Triangle(this,'0 0 0 0 1 0 1 1 0');
-       // triangle.display();
+//	    var triangle = new Triangle(this,'0 0 0 0 1 0 1 1 0');
+//        triangle.display();
+//
+//        var rectangle = new Rectangle(this,'0 0 1 1');
+//        rectangle.display();
+//
+//        var circle = new Circle(this,'1 100');
+//        circle.display();
 
-      var rectangle = new Rectangle(this,'0 0 1 1');
-         rectangle.display();
-
-        // var circle = new Circle(this,'1 6');
-        // circle.display();
+         var cylinder = new Cylinder(this,'1 1 5 6 3');
+         cylinder.display();
 	    // Draw axis
         this.axis.display();
 		this.lights[0].update();
 	}
+
 };
 
