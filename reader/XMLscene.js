@@ -92,6 +92,13 @@ XMLscene.prototype.display = function () {
 
          var cylinder = new Cylinder(this,'1 1 5 6 3');
          cylinder.display();
+
+        // var sphere = new Sphere(this,'1 1 6 6');
+        // cylinder.display();
+
+        // var torus = new Torus(this,'');
+        // torus.display();
+
 	    // Draw axis
         this.axis.display();
 		this.lights[0].update();
