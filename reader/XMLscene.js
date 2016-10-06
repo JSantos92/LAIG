@@ -33,7 +33,7 @@ XMLscene.prototype.initIllumination = function () {
 
 XMLscene.prototype.initLights = function () {
 
-	this.lights[0].setPosition(4, 0, 4, 1);
+	this.lights[0].setPosition(4,6, 4, 1);
     this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
     this.lights[0].update();
 
@@ -89,7 +89,7 @@ XMLscene.prototype.display = function () {
         // var circle = new Circle(this,'1 100');
         // circle.display();
 
-          var cylinder = new Cylinder(this,'1 1 5 30 10');
+          var cylinder = new Cylinder(this,'1 1 5 6 3');
           cylinder.display();
 
         // var sphere = new Sphere(this,'1 1 6 6');

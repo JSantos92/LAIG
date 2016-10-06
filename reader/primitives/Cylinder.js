@@ -43,27 +43,35 @@ Cylinder.prototype.initBuffers = function() {
     console.log(dif);
 
     //lateral
-    for(var j=0;j<nstacks;j++){
+    for(var j=0;j<nstacks+1;j++){
         for(var k=0;k<nslices;k++){
-
-            this.vertices.push(Math.cos(this.alpha*k)*(base-((j+1)*dif)),-(height/2)+(height/nstacks)*(j+1),Math.sin(this.alpha*k)*(base-((j+1)*dif)));
-            this.normals.push(Math.cos(this.alpha*k)*(base-((j+1)*dif)),0,Math.sin(this.alpha*k)*(base-((j+1)*dif)));
-            if(k==nslices-1) this.indices.push(k+1+(j*nslices),k+1+nslices+(j*nslices),(k+2+(j*nslices))-nslices);
-            else this.indices.push(k+1+(j*nslices),k+1+nslices+(j*nslices),k+2+(j*nslices));
+            this.vertices.push(Math.cos(this.alpha*k)*(base-(j*dif)),-(height/2)+(height/nstacks)*j,Math.sin(this.alpha*k)*(base-(j*dif)));
+            this.normals.push(Math.cos(this.alpha*k)*(base-(j*dif)),0,Math.sin(this.alpha*k)*(base-(j*dif)));
+            if(j!=0){
+                if(k==nslices-1) this.indices.push(k+1+(j*nslices),k+1+nslices+(j*nslices),(k+2+(j*nslices))-nslices);
+                else this.indices.push(k+1+(j*nslices),k+1+nslices+(j*nslices),k+2+(j*nslices));
+            }
         }
         for(var l=0;l<nslices;l++){
             if(l==0) this.indices.push((l+1)+(j*nslices),nslices*(l+2)+(j*nslices),nslices+(l+1)+(j*nslices));
             else this.indices.push((l+1)+(j*nslices),nslices+l+(j*nslices),nslices+(l+1+(j*nslices)));
         }
     }
+    for(var i=0;i<nslices;i++){
+        this.vertices.push(Math.cos(this.alpha*i)*top,this.height/2,Math.sin(this.alpha*i)*top);
+        this.normals.push(0,1,0);
+    }
     //topo
     this.vertices.push(0,this.height/2, 0);
     this.normals.push(0,1,0);
+    var aux=nslices*(nstacks+3)+2;
+    console.log(aux);
     for(var i=0;i<nslices;i++){
         if(i==nslices-1) this.indices.push(nslices*(nstacks+1)-i,nslices*(nstacks+1),nslices*(nstacks+1)+1);
-        this.indices.push(nslices*(nstacks+1)-i,nslices*(nstacks+1)-(i+1),nslices*(nstacks+1)+1);
-        
+        this.indices.push(aux-(i+2),aux-(i+3),aux-1);
+
     }
+
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };
