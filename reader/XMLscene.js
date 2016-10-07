@@ -89,14 +89,14 @@ XMLscene.prototype.display = function () {
         // var circle = new Circle(this,'1 100');
         // circle.display();
 
-          var cylinder = new Cylinder(this,'1 1 5 6 3');
-          cylinder.display();
+          // var cylinder = new Cylinder(this,'1 1 5 6 3');
+          // cylinder.display();
 
-        // var sphere = new Sphere(this,'1 1 6 6');
-        // cylinder.display();
+        // var sphere = new Sphere(this,'1 6 6');
+        // sphere.display();
 
-//          var torus = new Torus(this,'2 1 6 6');
-//          torus.display();
+         var torus = new Torus(this,'1 3 10 10');
+         torus.display();
 
 	    // Draw axis
         this.axis.display();
