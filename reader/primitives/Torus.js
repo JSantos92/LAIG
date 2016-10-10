@@ -47,9 +47,9 @@ Torus.prototype.initBuffers = function() {
 
             this.vertices.push(x1, y1, z1);
 
-            this.normals.push(x1 * this.ang);
-            this.normals.push(y1 * this.ang);
-            this.normals.push(z1 * this.ang);
+            this.normals.push(x1);
+            this.normals.push(y1);
+            this.normals.push(z1);
         }
     }
 
