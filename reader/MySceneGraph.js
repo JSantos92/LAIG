@@ -22,11 +22,7 @@ MySceneGraph.prototype.onXMLReady=function() {
 	var rootElement = this.reader.xmlDoc.documentElement;
 	
 	// Here should go the calls for different functions to parse the various blocks
-	var error = this.parseGlobalsExample(rootElement);
-	if (error != null) {
-		this.onXMLError(error);
-		return;
-	}
+
 
 	var error = this.parseScene(rootElement);
 	if (error != null) {
@@ -88,26 +84,7 @@ MySceneGraph.prototype.onXMLReady=function() {
 	this.scene.onGraphLoaded();
 };
 
-MySceneGraph.prototype.parseGlobalsExample= function(rootElement) {
 
-	var elems =  rootElement.getElementsByTagName('globals');
-	if (elems == null) {
-		return "globals element is missing.";
-	}
-
-	if (elems.length != 1) {
-		return "either zero or more than one 'globals' element found.";
-	}
-
-	// various examples of different types of access
-	var globals = elems[0];
-	this.background = this.reader.getRGBA(globals, 'background');
-	this.drawmode = this.reader.getItem(globals, 'drawmode', ["fill","line","point"]);
-	this.cullface = this.reader.getItem(globals, 'cullface', ["back","front","none", "frontandback"]);
-	this.cullorder = this.reader.getItem(globals, 'cullorder', ["ccw","cw"]);
-
-	console.log("Globals read from file: {background=" + this.background + ", drawmode=" + this.drawmode + ", cullface=" + this.cullface + ", cullorder=" + this.cullorder + "}");
-};
 
 MySceneGraph.prototype.parseScene= function(rootElement) {
 
