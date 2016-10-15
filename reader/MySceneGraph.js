@@ -280,7 +280,7 @@ MySceneGraph.prototype.parseLights = function(rootElement) {
         var temp_spot ={};
         temp_spot['id'] = this.reader.getString(spots[i],'id',true);
         temp_spot['enabled'] = this.reader.getFloat(spots[i],'enabled',true);
-        temp_spot['angle'] = this.reader.getFloat(spots[i],'angle',true);
+        temp_spot['angle'] = this.reader.getFloat(spots[i],'angle',true)*(Math.PI/180);
         temp_spot['exponent'] = this.reader.getFloat(spots[i],'exponent',true);
 
         var found = id_arr.indexOf(temp_spot['id']);
@@ -462,9 +462,10 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement){
         return "primitives element is missing.";
     }
 
-    var id_arr = [];
+    this.primitives=[];
     var primitives = elems[0].getElementsByTagName('primitive');
-    this.primitives = [];
+
+    var id_arr = [];
 
     for(var i=0;i<primitives.length;i++){
         var primitive = {};
@@ -473,52 +474,84 @@ MySceneGraph.prototype.parsePrimitives = function(rootElement){
         if (found>-1) return "Repeated primitive id";
         id_arr.push(primitive['id']);
 
-        var rectangle = primitives[i].getElementsByTagName('rectangle');
-        var triangle = primitives[i].getElementsByTagName('triangle');
-        var cylinder = primitives[i].getElementsByTagName('cylinder');
-        var sphere = primitives[i].getElementsByTagName('sphere');
-        var torus = primitives[i].getElementsByTagName('torus');
+        //ADD PRIMITIVE HERE
 
-        primitive['rectangle'] = {};
-        primitive['triangle'] = {};
-        primitive['cylinder'] = {};
-        primitive['sphere'] = {};
-        primitive['torus'] = {};
+        if(primitive['id']=='rectangle'){
+            var rectangle = primitives[i].getElementsByTagName('rectangle');
+            primitive['rectangle'] = {};
+            primitive['rectangle']['x1'] = this.reader.getFloat(rectangle[0],'x1',true);
+            primitive['rectangle']['y1'] = this.reader.getFloat(rectangle[0],'y1',true);
+            primitive['rectangle']['x2'] = this.reader.getFloat(rectangle[0],'x2',true);
+            primitive['rectangle']['y2'] = this.reader.getFloat(rectangle[0],'y2',true);
+            this.primitives.push(primitive);
+        }
 
-        primitive['rectangle']['x1'] = this.reader.getFloat(rectangle[0],'x1',true);
-        primitive['rectangle']['y1'] = this.reader.getFloat(rectangle[0],'y1',true);
-        primitive['rectangle']['x2'] = this.reader.getFloat(rectangle[0],'x2',true);
-        primitive['rectangle']['y2'] = this.reader.getFloat(rectangle[0],'y2',true);
+        else if(primitive['id']=='triangle'){
+            var triangle = primitives[i].getElementsByTagName('triangle');
+            primitive['triangle'] = {};
+            primitive['triangle']['x1'] = this.reader.getFloat(triangle[0],'x1',true);
+            primitive['triangle']['y1'] = this.reader.getFloat(triangle[0],'y1',true);
+            primitive['triangle']['z1'] = this.reader.getFloat(triangle[0],'z1',true);
+            primitive['triangle']['x2'] = this.reader.getFloat(triangle[0],'x2',true);
+            primitive['triangle']['y2'] = this.reader.getFloat(triangle[0],'y2',true);
+            primitive['triangle']['z2'] = this.reader.getFloat(triangle[0],'z2',true);
+            primitive['triangle']['x3'] = this.reader.getFloat(triangle[0],'x3',true);
+            primitive['triangle']['y3'] = this.reader.getFloat(triangle[0],'y3',true);
+            primitive['triangle']['z3'] = this.reader.getFloat(triangle[0],'z3',true);
+            this.primitives.push(primitive);
+        }
 
-        primitive['triangle']['x1'] = this.reader.getFloat(triangle[0],'x1',true);
-        primitive['triangle']['y1'] = this.reader.getFloat(triangle[0],'y1',true);
-        primitive['triangle']['z1'] = this.reader.getFloat(triangle[0],'z1',true);
-        primitive['triangle']['x2'] = this.reader.getFloat(triangle[0],'x2',true);
-        primitive['triangle']['y2'] = this.reader.getFloat(triangle[0],'y2',true);
-        primitive['triangle']['z2'] = this.reader.getFloat(triangle[0],'z2',true);
-        primitive['triangle']['x3'] = this.reader.getFloat(triangle[0],'x3',true);
-        primitive['triangle']['y3'] = this.reader.getFloat(triangle[0],'y3',true);
-        primitive['triangle']['z3'] = this.reader.getFloat(triangle[0],'z3',true);
+        else if(primitive['id']=='cylinder'){
+            var cylinder = primitives[i].getElementsByTagName('cylinder');
+            primitive['cylinder'] = {};
+            primitive['cylinder']['base'] = this.reader.getFloat(cylinder[0],'base',true);
+            primitive['cylinder']['top'] = this.reader.getFloat(cylinder[0],'top',true);
+            primitive['cylinder']['height'] = this.reader.getFloat(cylinder[0],'height',true);
+            primitive['cylinder']['slices'] = this.reader.getFloat(cylinder[0],'slices',true);
+            primitive['cylinder']['stacks'] = this.reader.getFloat(cylinder[0],'stacks',true);
+            this.primitives.push(primitive);
+        }
 
-        primitive['cylinder']['base'] = this.reader.getFloat(cylinder[0],'base',true);
-        primitive['cylinder']['top'] = this.reader.getFloat(cylinder[0],'top',true);
-        primitive['cylinder']['height'] = this.reader.getFloat(cylinder[0],'height',true);
-        primitive['cylinder']['slices'] = this.reader.getFloat(cylinder[0],'slices',true);
-        primitive['cylinder']['stacks'] = this.reader.getFloat(cylinder[0],'stacks',true);
+        else if(primitive['id']=='sphere'){
+            var sphere = primitives[i].getElementsByTagName('sphere');
+            primitive['sphere'] = {};
+            primitive['sphere']['radius'] = this.reader.getFloat(sphere[0],'radius',true);
+            primitive['sphere']['slices'] = this.reader.getFloat(sphere[0],'slices',true);
+            primitive['sphere']['stacks'] = this.reader.getFloat(sphere[0],'stacks',true);
+            this.primitives.push(primitive);
+        }
 
-        primitive['sphere']['radius'] = this.reader.getFloat(sphere[0],'radius',true);
-        primitive['sphere']['slices'] = this.reader.getFloat(sphere[0],'slices',true);
-        primitive['sphere']['stacks'] = this.reader.getFloat(sphere[0],'stacks',true);
-
-        primitive['torus']['inner'] = this.reader.getFloat(torus[0],'inner',true);
-        primitive['torus']['outer'] = this.reader.getFloat(torus[0],'outer',true);
-        primitive['torus']['slices'] = this.reader.getFloat(torus[0],'slices',true);
-        primitive['torus']['loops'] = this.reader.getFloat(torus[0],'loops',true);
-
-        this.primitives.push(primitive);
-        console.log(primitive);
+        else if(primitive['id']=='torus'){
+            var torus = primitives[i].getElementsByTagName('torus');
+            primitive['torus'] = {};
+            primitive['torus']['inner'] = this.reader.getFloat(torus[0],'inner',true);
+            primitive['torus']['outer'] = this.reader.getFloat(torus[0],'outer',true);
+            primitive['torus']['slices'] = this.reader.getFloat(torus[0],'slices',true);
+            primitive['torus']['loops'] = this.reader.getFloat(torus[0],'loops',true);
+            this.primitives.push(primitive);
+        }
     }
 };
+
+
+function getTranslate(translate,arr,reader){
+    arr.push(reader.getFloat(translate,'x',true));
+    arr.push(reader.getFloat(translate,'y',true));
+    arr.push(reader.getFloat(translate,'z',true));
+}
+
+function getRotate(rotate,arr,reader){
+    arr.push(reader.getFloat(rotate,'axis',true));
+    arr.push(reader.getFloat(rotate,'angle',true));
+}
+
+function getScale(scale,arr,reader){
+    arr.push(reader.getFloat(scale,'x',true));
+    arr.push(reader.getFloat(scale,'y',true));
+    arr.push(reader.getFloat(scale,'z',true));
+}
+
+
 
 MySceneGraph.prototype.parseComponents = function(rootElement){
     var elems =  rootElement.getElementsByTagName('components');
@@ -541,24 +574,42 @@ MySceneGraph.prototype.parseComponents = function(rootElement){
         var transformation = components[i].getElementsByTagName('transformation');
         component['transformation'] = {};
         var transformationref = transformation[0].getElementsByTagName('transformationref');
-        component['transformation']['transformationref'] = {};
-        component['transformation']['transformationref']['id'] = this.reader.getString(transformationref[0],'id',true);
-        component['transformation']['translate'] = {};
-        component['transformation']['rotate'] = {};
-        component['transformation']['scale'] = {};
+        if(transformationref!=null){
+            if(transformationref[0]!=null){
+                component['transformation']['transformationref'] = {};
+                component['transformation']['transformationref']['id'] = this.reader.getString(transformationref[0],'id',true);
+            }
+            else{
+                var translate = transformation[0].getElementsByTagName('translate');
+                var rotate =  transformation[0].getElementsByTagName('rotate');
+                var scale = transformation[0].getElementsByTagName('scale');
 
-        var translate = transformation[0].getElementsByTagName('translate');
-        var rotate = transformation[0].getElementsByTagName('rotate');
-        var scale = transformation[0].getElementsByTagName('scale');
+                var transList = Array.prototype.slice.call(translate);
+                var rotaList = Array.prototype.slice.call(rotate);
+                var scaList = Array.prototype.slice.call(scale);
 
-        component['transformation']['translate']['x'] = this.reader.getFloat(translate[0],'x',true);
-        component['transformation']['translate']['y'] = this.reader.getFloat(translate[0],'y',true);
-        component['transformation']['translate']['z'] = this.reader.getFloat(translate[0],'z',true);
-        component['transformation']['rotate']['axis'] = this.reader.getFloat(rotate[0],'axis',true);
-        component['transformation']['rotate']['angle'] = this.reader.getFloat(rotate[0],'angle',true);
-        component['transformation']['scale']['x'] = this.reader.getFloat(scale[0],'x',true);
-        component['transformation']['scale']['y'] = this.reader.getFloat(scale[0],'y',true);
-        component['transformation']['scale']['z'] = this.reader.getFloat(scale[0],'z',true);
+
+                component['transformation']['translate'] = [];
+                component['transformation']['rotate'] = [];
+                component['transformation']['scale'] = [];
+
+
+                transList.forEach(function(element, index, array) {
+                    getTranslate(element, component['transformation']['translate'],this.reader);
+                },this);
+
+                rotaList.forEach(function(element, index, array) {
+                    getRotate(element, component['transformation']['rotate'],this.reader);
+                },this);
+
+                scaList.forEach(function(element, index, array) {
+                    getScale(element, component['transformation']['scale'],this.reader);
+                },this);
+
+
+            }
+        }
+
 
         //materials
         var materials = components[i].getElementsByTagName('materials');
